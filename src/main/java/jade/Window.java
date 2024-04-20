@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -15,12 +16,19 @@ public class Window {
     private  String title;
     private long glfwWindow;
 
+    private float r, g, b, a;
+    private boolean fadeToBlack = false;
+
     private  static Window window = null;
 
     private Window(){
         this.width = 1920;
         this.height= 1080;
         this.title ="GameEngine";
+        r = 1;
+        b = 1;
+        g = 1;
+        a = 1;
     }
 
     public static  Window get(){
@@ -35,6 +43,15 @@ public class Window {
 
         init();
         loop();
+
+        // Free the memory
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        // Terminate GLFW and the free the error callback
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
+
     }
     public void init(){
 //        Mengsetup error pada layar window dan memberi pesan kesalahan
@@ -59,6 +76,11 @@ public class Window {
             throw new IllegalStateException("Gagal untuk membuat  sebuah window GLFW");
         }
 
+        glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
+        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+        glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+
 //        Membuat  sebuah OpenGl Context Current
         glfwMakeContextCurrent(glfwWindow);
 //        Mengaktifkan  v-sync
@@ -77,8 +99,20 @@ public class Window {
     while (!glfwWindowShouldClose(glfwWindow)){
         glfwPollEvents();;
 
-        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+        glClearColor(r, g, b, a);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        if (fadeToBlack) {
+            r = Math.max(r - 0.01f, 0);
+            g = Math.max(g - 0.01f, 0);
+            b = Math.max(b - 0.01f, 0);
+        }
+
+        if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)) {
+            fadeToBlack = true;
+            System.out.println("Space key is pressed");
+        }
+
         glfwSwapBuffers(glfwWindow);
     }
     }
