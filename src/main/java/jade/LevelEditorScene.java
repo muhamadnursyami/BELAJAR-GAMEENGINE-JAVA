@@ -8,13 +8,15 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import util.AssetPool;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
 
     private GameObject obj1;
     private Spritesheet sprites;
+    SpriteRenderer obj1Sprite;
     public  LevelEditorScene(){
 
     }
@@ -30,7 +32,9 @@ public class LevelEditorScene extends Scene {
         //        Menginisialisasi sebuah object Game
         obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 100),
                 new Vector2f(256, 256)), 2);
-        obj1.addComponent(new SpriteRenderer(new Vector4f(1, 0, 0, 1)));
+        obj1Sprite = new SpriteRenderer();
+        obj1Sprite.setColor(new Vector4f(1, 0, 0, 1));
+        obj1.addComponent(obj1Sprite);
 
         this.addGameObjectToScene(obj1);
         this.activeGameObject = obj1;
@@ -38,12 +42,23 @@ public class LevelEditorScene extends Scene {
 //                Z INDEX = 3, jadi obj2 akan di atas dari obj1 karena obj1 indexnya 2. otomatis obj2
 //                diatas obj1
                 new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 3);
-        obj2.addComponent(new SpriteRenderer(new Sprite(
-                AssetPool.getTexture("assets/images/blendImage2.png")
-        )));
+        SpriteRenderer obj2SpriteRenderer = new SpriteRenderer();
+        Sprite obj2Sprite = new Sprite();
+        obj2Sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
+        obj2SpriteRenderer.setSprite(obj2Sprite);
+        obj2.addComponent(obj2SpriteRenderer);
         this.addGameObjectToScene(obj2);
 
-        loadResources();
+//        Gson gson = new GsonBuilder()
+//                .setPrettyPrinting()
+//                .create();
+//        String serialized = gson.toJson(obj1);
+//        System.out.println(serialized);
+//        GameObject obj = gson.fromJson(serialized, GameObject.class);
+//        System.out.println(obj);
+
+
+//
     }
 
 
@@ -65,38 +80,8 @@ public class LevelEditorScene extends Scene {
     }
     @Override
     public void imgui() {
-        ImGui.begin("Character Sprites");
-
-        ImVec2 windowPos = new ImVec2();
-        ImVec2 contentRegion = new ImVec2();
-        ImGui.getWindowPos(windowPos);
-        ImGui.getWindowContentRegionMax(contentRegion);
-        float windowWidth = windowPos.x + contentRegion.x;
-
-        for (int i=0; i < this.sprites.size(); i++) {
-            Sprite sprite = sprites.getSprite(i);
-            int texId = sprite.getTexture().getTexID();
-            Vector2f[] texCoords = sprite.getTexCoords();
-
-            ImGui.pushID(i);
-            if (ImGui.imageButton(texId, 64, 64,
-                    texCoords[0].x, texCoords[0].y, texCoords[2].x, texCoords[2].y)) {
-                System.out.println("Image pressed " + i);
-            }
-            ImGui.popID();
-
-            ImVec2 lastButtonPos = new ImVec2();
-            ImVec2 itemSpacing = new ImVec2();
-            ImGui.getItemRectMax(lastButtonPos);
-            ImGui.getStyle().getItemSpacing(itemSpacing);
-
-            float lastButtonX2 = lastButtonPos.x;
-            float nextButtonX2 = lastButtonX2 + itemSpacing.x + 64;
-            if (i + 1 < sprites.size() && nextButtonX2 < windowWidth) {
-                ImGui.sameLine();
-            }
-        }
-
+        ImGui.begin("Test window");
+        ImGui.text("Some random text");
         ImGui.end();
     }
 
