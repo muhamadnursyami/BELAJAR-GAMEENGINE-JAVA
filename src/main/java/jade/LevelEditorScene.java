@@ -1,7 +1,9 @@
 package jade;
-
+import components.Sprite;
 import components.SpriteRenderer;
+import components.Spritesheet;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 import util.AssetPool;
 
@@ -17,15 +19,19 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init(){
+        loadResources();
         this.camera = new Camera(new Vector2f(-250, 0));
+        Spritesheet sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
 //        Menginisialisasi sebuah object Game
         GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        obj1.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage.png")));
+//        Mengambil object pada spritesheet di index 0
+        obj1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addGameObjectToScene(obj1);
 
         GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
-        obj2.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage2.png")));
+//        Index 7 artinya kita mengambil sebuah object pada gambar spredsheet pada index ke 7 di mulai dari 0
+        obj2.addComponent(new SpriteRenderer(sprites.getSprite(7)));
         this.addGameObjectToScene(obj2);
 
         loadResources();
@@ -34,6 +40,9 @@ public class LevelEditorScene extends Scene {
 
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
+        AssetPool.addSpritesheet("assets/images/spritesheet.png",
+                new Spritesheet(AssetPool.getTexture("assets/images/spritesheet.png"),
+                        16, 16, 26, 0));
     }
 
 

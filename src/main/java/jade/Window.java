@@ -135,7 +135,7 @@ public class Window {
 
 
         if (dt >= 0){
-            System.out.println(dt);
+
             currentScene.update(dt);
         }
 
