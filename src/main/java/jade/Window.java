@@ -27,9 +27,9 @@ public class Window {
         this.width = 1920;
         this.height= 1080;
         this.title ="GameEngine";
-        r = 0.7f;
-        b = 0.2f;
-        g = 0.1f;
+        r = 1;
+        b = 1;
+        g = 1;
         a = 1;
     }
 
@@ -119,6 +119,10 @@ public class Window {
 // binding tersedia untuk digunakan.
         GL.createCapabilities();
 
+//        Mengaktifkan BLEND
+        glEnable(GL_BLEND);
+//        Menghapus background hitam pada objek, dengan mengaktifkan alpha
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         Window.changeScene(0);
     }
     public void loop (){
