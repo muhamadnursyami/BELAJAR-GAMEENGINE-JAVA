@@ -11,7 +11,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
 
-
+    private GameObject obj1;
+    private Spritesheet sprites;
     public  LevelEditorScene(){
 
     }
@@ -21,10 +22,10 @@ public class LevelEditorScene extends Scene {
     public void init(){
         loadResources();
         this.camera = new Camera(new Vector2f(-250, 0));
-        Spritesheet sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
+        sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
 //        Menginisialisasi sebuah object Game
-        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
+        obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
 //        Mengambil object pada spritesheet di index 0
         obj1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
         this.addGameObjectToScene(obj1);
@@ -46,17 +47,24 @@ public class LevelEditorScene extends Scene {
     }
 
 
+    private int spriteIndex = 0;
+    private float spriteFlipTime = 0.2f;
+    private float spriteFlipTimeLeft = 0.0f;
     @Override
     public void update(float dt) {
-        if (KeyListener.isKeyPressed(GLFW_KEY_RIGHT)) {
-            camera.position.x += 100f * dt;
-        } else if (KeyListener.isKeyPressed(GLFW_KEY_LEFT)) {
-            camera.position.x -= 100f * dt;
-        }
-        if (KeyListener.isKeyPressed(GLFW_KEY_UP)) {
-            camera.position.y += 100f * dt;
-        } else if (KeyListener.isKeyPressed(GLFW_KEY_DOWN)) {
-            camera.position.y -= 100f * dt;
+//        Sebuah kode untuk mengambil 5 gambar dari spredsheet
+//        yang berupa potongan gambar mario lari
+//        gambar dimulai dan diambil dari index 0 sampai index 4
+//        jika gambarnya udah sampai index ke 4, maka akan kembali
+//        mengambil gambar di index 0/ atau kembali ke awal semula
+        spriteFlipTimeLeft -= dt;
+        if (spriteFlipTimeLeft <= 0) {
+            spriteFlipTimeLeft = spriteFlipTime;
+            spriteIndex++;
+            if (spriteIndex > 4) {
+                spriteIndex = 0;
+            }
+            obj1.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
         }
 
         for (GameObject go : this.gameObjects) {
