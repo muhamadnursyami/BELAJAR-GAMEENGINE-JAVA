@@ -4,6 +4,7 @@ import jade.Component;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import renderer.Texture;
+import imgui.ImGui;
 public class SpriteRenderer extends Component {
 
     private Vector4f color;
@@ -31,6 +32,15 @@ public class SpriteRenderer extends Component {
         if (!this.lastTransform.equals(this.gameObject.transform)) {
             this.gameObject.transform.copy(this.lastTransform);
             isDirty = true;
+        }
+    }
+
+    @Override
+    public void imgui() {
+        float[] imColors = {this.color.x, this.color.y, this.color.z, this.color.w};
+        if (ImGui.colorPicker4("Color: ", imColors)) {
+            this.color.set(imColors[0], imColors[1], imColors[2], imColors[3]);
+            this.isDirty = true;
         }
     }
     public Vector4f getColor() {

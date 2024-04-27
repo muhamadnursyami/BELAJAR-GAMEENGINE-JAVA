@@ -109,6 +109,13 @@ public class Window {
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
             Window.setWidth(newWidth);
             Window.setHeight(newHeight);
+
+            // Add a delay before allowing the user to drag the mouse
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
 
 //        Membuat  sebuah OpenGl Context Current
@@ -151,7 +158,7 @@ public class Window {
 
             currentScene.update(dt);
         }
-        this.imguiLayer.update(dt);
+        this.imguiLayer.update(dt,currentScene);
         glfwSwapBuffers(glfwWindow);
 
         endTime = (float)glfwGetTime();
