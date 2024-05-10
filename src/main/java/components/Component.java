@@ -81,7 +81,7 @@ public abstract class Component {
         }
     }
 
-    public int uid() {
+    public int getUid() {
         return this.uid;
     }
 
