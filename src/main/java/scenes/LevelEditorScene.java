@@ -94,6 +94,11 @@ public class LevelEditorScene extends Scene {
 //        DebugDraw.addBox2D(obj2.position, new Vector2f(32, 32), 0.0f, new Vector3f(0.2f, 0.8f, 0.1f));
 //        physics.update(dt);
 
+
+    }
+
+    @Override
+    public void render() {
         this.renderer.render();
     }
     @Override
