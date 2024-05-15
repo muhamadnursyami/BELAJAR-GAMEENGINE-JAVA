@@ -50,8 +50,8 @@ public class EditorCamera extends Component {
         }
 
 
-//        KETIKA INGIN MERESET CAMERA EDITOR KLIK TOMBOL R
-        if (KeyListener.isKeyPressed(GLFW_KEY_R)) {
+//        KETIKA INGIN MERESET CAMERA EDITOR KLIK TOMBOL K
+        if (KeyListener.isKeyPressed(GLFW_KEY_K)) {
             reset = true;
         }
 
