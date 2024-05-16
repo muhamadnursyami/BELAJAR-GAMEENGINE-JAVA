@@ -1,11 +1,13 @@
 package components;
+
+import editor.JImGui;
+import imgui.ImGui;
 import jade.Transform;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import renderer.Texture;
-import imgui.ImGui;
-public class SpriteRenderer extends Component {
 
+public class SpriteRenderer extends Component {
 
     private Vector4f color = new Vector4f(1, 1, 1, 1);
     private Sprite sprite = new Sprite();
@@ -13,7 +15,7 @@ public class SpriteRenderer extends Component {
     private transient Transform lastTransform;
     private transient boolean isDirty = true;
 
-    //    public SpriteRenderer(Vector4f color) {
+//    public SpriteRenderer(Vector4f color) {
 //        this.color = color;
 //        this.sprite = new Sprite(null);
 //        this.isDirty = true;
@@ -24,6 +26,7 @@ public class SpriteRenderer extends Component {
 //        this.color = new Vector4f(1, 1, 1, 1);
 //        this.isDirty = true;
 //    }
+
     @Override
     public void start() {
         this.lastTransform = gameObject.transform.copy();
@@ -39,12 +42,11 @@ public class SpriteRenderer extends Component {
 
     @Override
     public void imgui() {
-        float[] imColors = {this.color.x, this.color.y, this.color.z, this.color.w};
-        if (ImGui.colorPicker4("Color: ", imColors)) {
-            this.color.set(imColors[0], imColors[1], imColors[2], imColors[3]);
+        if (JImGui.colorPicker4("Color Pickier", this.color)) {
             this.isDirty = true;
         }
     }
+
     public Vector4f getColor() {
         return this.color;
     }
@@ -55,7 +57,6 @@ public class SpriteRenderer extends Component {
 
     public Vector2f[] getTexCoords() {
         return sprite.getTexCoords();
-
     }
 
     public void setSprite(Sprite sprite) {
