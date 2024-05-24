@@ -6,6 +6,7 @@ import imgui.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import scenes.Scene;
+import java.io.File;
 import imgui.callback.ImStrConsumer;
 import imgui.callback.ImStrSupplier;
 import imgui.flag.*;
@@ -133,20 +134,17 @@ public class ImGuiLayer {
         // ------------------------------------------------------------
         // Fonts configuration
         // Read: https://raw.githubusercontent.com/ocornut/imgui/master/docs/FONTS.txt
-        final ImFontAtlas fontAtlas = io.getFonts();
-        final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
-
+        if (new File("assets/fonts/segoeui.ttf").isFile()) {
+            final ImFontAtlas fontAtlas = io.getFonts();
+            final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
         // Glyphs could be added per-font as well as per config used globally like here
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
+            // Fonts merge example
+            fontConfig.setPixelSnapH(true);
+            fontAtlas.addFontFromFileTTF("assets/fonts/segoeui.ttf", 16, fontConfig);
+            fontConfig.destroy(); // After all fonts were added we don't need this config more
+        }
 
-        // Fonts merge example
-        fontConfig.setPixelSnapH(true);
-
-
-        // Fonts from file/memory example
-        // We can add new fonts from the file system
-        fontAtlas.addFontFromFileTTF("assets/fonts/segoeui.ttf", 16, fontConfig);
-        fontConfig.destroy(); // After all fonts were added we don't need this config more
 
 
 
