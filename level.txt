@@ -69,6 +69,10 @@
           "linearDamping": 0.9,
           "mass": 0.0,
           "bodyType": "Dynamic",
+          "friction": 0.1,
+          "angularVelocity": 0.0,
+          "gravityScale": 1.0,
+          "isSensor": false,
           "fixedRotation": false,
           "continuousCollision": true,
           "uid": 21
@@ -166,6 +170,10 @@
           "linearDamping": 0.9,
           "mass": 0.0,
           "bodyType": "Static",
+          "friction": 0.1,
+          "angularVelocity": 0.0,
+          "gravityScale": 1.0,
+          "isSensor": false,
           "fixedRotation": false,
           "continuousCollision": true,
           "uid": 25
@@ -263,6 +271,10 @@
           "linearDamping": 0.9,
           "mass": 0.0,
           "bodyType": "Static",
+          "friction": 0.1,
+          "angularVelocity": 0.0,
+          "gravityScale": 1.0,
+          "isSensor": false,
           "fixedRotation": false,
           "continuousCollision": true,
           "uid": 25
@@ -360,6 +372,10 @@
           "linearDamping": 0.9,
           "mass": 0.0,
           "bodyType": "Dynamic",
+          "friction": 0.1,
+          "angularVelocity": 0.0,
+          "gravityScale": 1.0,
+          "isSensor": false,
           "fixedRotation": false,
           "continuousCollision": true,
           "uid": 21
@@ -7356,19 +7372,19 @@
             },
             "texCoords": [
               {
-                "x": 0.42857143,
+                "x": 0.2857143,
                 "y": 1.0
               },
               {
-                "x": 0.42857143,
-                "y": 0.8
-              },
-              {
                 "x": 0.2857143,
                 "y": 0.8
               },
               {
-                "x": 0.2857143,
+                "x": 0.14285715,
+                "y": 0.8
+              },
+              {
+                "x": 0.14285715,
                 "y": 1.0
               }
             ]
@@ -7475,7 +7491,7 @@
                   "frameTime": 0.23
                 }
               ],
-              "time": 0.01367043,
+              "time": 0.046249375,
               "doesLoop": true
             }
           ],
@@ -7526,19 +7542,19 @@
             },
             "texCoords": [
               {
-                "x": 0.21428572,
+                "x": 0.2857143,
                 "y": 1.0
               },
               {
+                "x": 0.2857143,
+                "y": 0.5
+              },
+              {
                 "x": 0.21428572,
                 "y": 0.5
               },
               {
-                "x": 0.14285715,
-                "y": 0.5
-              },
-              {
-                "x": 0.14285715,
+                "x": 0.21428572,
                 "y": 1.0
               }
             ]
@@ -7675,7 +7691,7 @@
                   "frameTime": 0.23
                 }
               ],
-              "time": 0.055096135,
+              "time": 0.046249375,
               "doesLoop": true
             }
           ],
